@@ -5,7 +5,7 @@ const Team = () => {
   return (
     <div>
       <TeamHeader />
-      <div className="p-8 rounded-lg ">
+      <div className="rounded-lg ">
         <Outlet />
       </div>
     </div>

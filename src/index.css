@@ -2,3 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    h1 {
+      @apply text-6xl;
+      @apply font-black;
+    }
+    h2 {
+      @apply text-4xl;
+      @apply font-extrabold;
+    }
+    h3 {
+      @apply text-3xl;
+      @apply font-bold;
+    }
+    h4 {
+      @apply text-2xl;
+      @apply font-semibold;
+    }
+    h5 {
+      @apply text-xl;
+      @apply font-medium;
+    }
+    h6 {
+      @apply text-lg;
+      @apply font-medium;
+    }
+    /* ... */
+  }

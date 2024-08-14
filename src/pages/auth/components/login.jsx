@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
-import { login } from '../api/auth';
-import { useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
-
-import eye from "../../../assets/eye.svg";
-import eyeClose from "../../../assets/eyeClose.svg";
-import Loader from '../../../utils/Loader.jsx';
-
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from "react-router-dom";
+
+import { login } from '../api/auth';
 import { setLogin } from '../../../store/slices/authSlice.js';
 import { setUser } from '../../../store/slices/userSlice.js';
+
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { AlertDanger } from '../../../custom/components/alerts.jsx';
 
 export default function Login() {
   const [viewPass, setViewPass] = useState(false);
@@ -43,7 +41,7 @@ export default function Login() {
 
       dispatch(setLogin({ accessToken: response.data.accessToken }));
       dispatch(setUser({ user: response.data.user }));
-      
+
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -53,14 +51,16 @@ export default function Login() {
       setIsLoading(false);
     }
   }
+ 
+  
 
   return (
     <>
+
       {isError && (
-        <Alert variant="filled" severity="error" className='fixed w-[calc(100%-16px)]'>
-          {isError}
-        </Alert>
+        <AlertDanger msg={isError} setIsError={setIsError}/>
       )}
+
       <section className='w-full h-[calc(100vh-16px)] flex justify-center items-center flex-col' >
         <h2 className='mb-5 text-5xl'>Login</h2>
         <form className="min-w-[35%] mx-auto text-gray-900 p-10 rounded-xl bg-stone-400">
@@ -100,9 +100,9 @@ export default function Login() {
                   <span className='absolute block w-[15px] h-[15px] flex justify-center top-[50%] right-2.5 translate-y-[-50%] cursor-pointer'>
                     {
                       viewPass ? (
-                        <img src={eye} alt="view password" onClick={() => setViewPass(false)} />
+                        <BsEye onClick={() => setViewPass(false)} />
                       ) : (
-                        <img src={eyeClose} alt="view password" onClick={() => setViewPass(true)} />
+                        <BsEyeSlash onClick={() => setViewPass(true)} />
                       )
                     }
                   </span>
@@ -112,10 +112,10 @@ export default function Login() {
           </div>
 
           <button
-            disabled={isLoading? true:false}
+            disabled={isLoading ? true : false}
             type="submit"
             onClick={(e) => submitHandler(e)}
-            className={`clr-txt bg-orange-400 hover:bg-orange-500 active:bg-orange-500 border border-gray-900 outline-none focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center w-max transition-all ${isLoading&&'opacity-55'}`}
+            className={`clr-txt bg-orange-400 hover:bg-orange-500 active:bg-orange-500 border border-gray-900 outline-none focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center w-max transition-all ${isLoading && 'opacity-55'}`}
           >
             Submit
             {isLoading &&

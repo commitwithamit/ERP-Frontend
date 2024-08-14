@@ -18,22 +18,25 @@ const UsePersistLogin = () => {
 
                 dispatch(setLogin({accessToken: response.data.accessToken}));
                 dispatch(setUser(({user: response.data.user})));
+                setIsLoading(false);
             }catch(err){
-                setIsError(true);
+                setIsError(err.response.data?.message || "Internal Server Error");
+                // setIsError(true);
             }finally{
                 setIsLoading(false);
             }
         }
-
         if(!isAuth){
             getNewAT();
         }else{
             setIsLoading(false);
         }
-    }, []);
+    }, [isLoading]);
+
+    // console.log(isError );
 
     if(isError){
-        return <Navigate to="/login"/>;
+        return <Navigate to="/login" />;
     }
     return <>{isLoading?<div>Loading...</div> : <Outlet/>}</>;
 }

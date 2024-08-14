@@ -5,10 +5,11 @@ import Home from "./pages/home/Home";
 import Team from "./pages/team";
 
 import "./App.css";
+import "./style.scss";
 import Employee from "./pages/team/Employee";
 import Department from "./pages/team/Department";
 import Role from "./pages/team/Role";
-// import UsePersistLogin from "./hooks/UsePersistLogin";
+import UsePersistLogin from "./hooks/UsePersistLogin";
 function App() {
 
   return (

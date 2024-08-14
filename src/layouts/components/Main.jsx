@@ -1,8 +1,7 @@
-import React from 'react'
 
-export default function Main({ children }) {
+export default function Main({ children, openMenu }) {
   return (
-    <main className='w-full'>
+    <main className={openMenu ? "active" : ""}>
       {children}
     </main>
   )

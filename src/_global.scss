@@ -1,0 +1,88 @@
+$primary: #2b2c2b;
+$secondary: #ddd6d4;
+$accent: #cfc6c4;
+$red:#d85d5d;
+$blue:#5f7ed2;
+$table-bg:#f0f0f0;
+
+.bg-primary{
+    background: $primary;
+}
+.bg-secondary{
+    background: $secondary;
+}
+.bg-accent{
+    background: $accent;
+}
+
+.text-primary{
+    color: $primary;
+}
+.text-secondary{
+    color: $secondary;
+}
+.text-accent{
+    color: $accent;
+}
+
+@mixin shadow() {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+@mixin flex-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin inflex-center {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-center-h {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin flex-center-v {
+    display: flex;
+    align-items: center;
+}
+
+@mixin flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+h1,h2,h3,
+h4,h5,h6,a{
+    color: $secondary;
+}
+
+// scrollbar
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: $secondary;
+    // @include glass(auto, auto);
+    border-radius: 15px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(43 44 43 / 33%);
+    border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(43 44 43 / 50%);
+    border-radius: 15px;
+}

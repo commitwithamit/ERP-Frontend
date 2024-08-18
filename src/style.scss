@@ -12,7 +12,8 @@ body {
     height: 100vh;
 }
 
-.tabs.active {
+.tabs.active,
+.modal input {
     background: transparent;
     color: $primary;
     border: 1px solid $primary;
@@ -23,6 +24,28 @@ body {
     }
 }
 
+button[type="submit"] {
+    background: $primary !important;
+    color: $secondary !important;
+    transition: all .2s ease-in !important;
+    border: 1px solid transparent !important;
+
+    &:hover {
+        background: $modal-bg !important;
+        border-color: $primary !important;
+    }
+
+    &:focus {
+        outline: none !important;
+        --tw-ring-color: rgb(168 162 158)!important;
+        border-color: rgb(168 162 158)!important;
+    }
+    span {
+        display: flex;
+        align-items: center;
+    }
+}
+
 .btn {
     background: $primary;
     color: $secondary;
@@ -30,9 +53,14 @@ body {
     border: 1px solid transparent;
 
     &:hover {
-        background: transparent;
-        color: $primary;
+        background: $modal-bg;
         border-color: $primary;
+    }
+
+    &:focus {
+        outline: none !important;
+        --tw-ring-color: rgb(168 162 158);
+        border-color: rgb(168 162 158);
     }
 }
 
@@ -247,7 +275,7 @@ body {
             left: calc($closeWidth + 10px);
         }
 
-        &>div{
+        &>div {
             height: 100%;
             position: relative;
         }
@@ -319,6 +347,43 @@ body {
     pointer-events: none;
 }
 
+.modal {
+    // opacity: .8;
+    background-color: $modal-bg !important;
+
+    input {
+        border: 1px solid $primary;
+
+        &:focus {
+            outline: none !important;
+            --tw-ring-color: rgb(168 162 158);
+            border-color: rgb(168 162 158);
+        }
+    }
+
+    &>div {
+        &>div {
+            background: $secondary;
+        }
+    }
+
+    .btn {
+        background: $primary !important;
+        color: $secondary !important;
+        transition: all .2s ease-in !important;
+        border: 1px solid transparent !important;
+
+        &:hover,
+        &:focus {
+            background: $modal-bg !important;
+            border-color: $primary !important;
+            outline: none !important;
+            --tw-ring-color: transparent;
+        }
+
+    }
+}
+
 .table-con {
     height: calc(100vh - 280px);
     border-radius: .5rem;
@@ -338,7 +403,7 @@ body {
     table {
         overflow-y: auto;
 
-        th{
+        th {
             background-color: $primary;
             color: $secondary;
         }

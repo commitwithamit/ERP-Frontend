@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import { BsPerson, BsBuilding, BsPersonGear } from "react-icons/bs";
+import { BsPeople, BsBuilding, BsPersonGear } from "react-icons/bs";
 
 const TeamHeader = () => {
   return (
@@ -7,7 +7,7 @@ const TeamHeader = () => {
       <span className='flex gap-4'>
         <NavLink to="./employee"
           className="tabs btn focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 ">
-          <BsPerson className='w-4 h-4 me-2' />
+          <BsPeople className='w-4 h-4 me-2' />
           Employee
         </NavLink>
         <NavLink to="./department" className='tabs btn focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30'>

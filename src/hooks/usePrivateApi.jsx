@@ -15,11 +15,24 @@ const UsePrivateApi = () => {
         baseURL,
         withCredentials: true,
         headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
         }
     });
 
-    const get = async (endpoint, queryParams) => { }
+    const get = async (endpoint, queryParams = {}) => {
+        try {
+            setLoading(true);
+            const response = await axiosInstance.get(endpoint, {
+                params: queryParams,
+            });
+            setData(response?.data);
+        } catch (err) {
+            setError(err?.response?.data?.message || "Internal Server Error");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     const post = async (endpoint, data) => {
         try {
@@ -34,9 +47,47 @@ const UsePrivateApi = () => {
         }
     }
 
-    const put = async (endpoint, data, queryParams) => { }
-    const patch = async (endpoint, data, queryParams) => { }
-    const del = async (endpoint, queryParams) => { }
+    const put = async (endpoint, data, queryParams) => {
+        try {
+            setLoading(true);
+            const response = await axiosInstance.put(endpoint, data, {
+                params: queryParams,
+            });
+            setData(response?.data);
+        } catch (err) {
+            setError(err?.response?.data?.message || "Internal Server Error");
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const patch = async (endpoint, data, queryParams) => {
+        try {
+            setLoading(true);
+            const response = await axiosInstance.patch(endpoint, data, {
+                params: queryParams,
+            });
+            setData(response?.data);
+        } catch (err) {
+            setError(err?.response?.data?.message || "Internal Server Error");
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const del = async (endpoint, queryParams) => {
+        try {
+            setLoading(true);
+            const response = await axiosInstance.delete(endpoint, {
+                params: queryParams,
+            });
+            setData(response?.data);
+        } catch (err) {
+            setError(err?.response?.data?.message || "Internal Server Error");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return { get, post, put, patch, del, data, loading, error };
 }

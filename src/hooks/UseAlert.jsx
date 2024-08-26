@@ -14,9 +14,9 @@ export default function UseAlert({ showAlert, setShowAlert }) {
                 msg:"",
                 show:false,
             });
-        },3000);
+        },5000);
         return ()=>clearTimeout(removeTimer);
-    });
+    },[showAlert.show]);
 
     return (
         <>

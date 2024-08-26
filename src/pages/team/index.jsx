@@ -1,12 +1,15 @@
 import { Outlet } from "react-router-dom";
 import TeamHeader from "./TeamHeader";
+import { TeamContext } from "../../contexts/TeamContext";
 
 const Team = () => {
   return (
     <div>
       <TeamHeader />
       <div className="rounded-lg ">
-        <Outlet />
+        <TeamContext>
+          <Outlet />
+        </TeamContext>
       </div>
     </div>
   )

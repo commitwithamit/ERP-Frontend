@@ -55,9 +55,11 @@ export default function Login() {
 
       navigate("/");
     } catch (err) {
-      console.log(err);
-      console.log(err?.response?.data?.message);
-      setIsError(err?.response?.data?.message);
+      setShowAlert({
+        type: "failure",
+        msg: err?.response?.data?.message,
+        show: true,
+      });
     } finally {
       setIsLoading(false);
     }

@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import { logout } from "../../pages/auth/api/auth";
 
 import profile from "../../assets/user-img.png";
-import { BsHouse, BsPeople, BsBoxArrowRight, BsPatchPlus, BsArrowLeftShort } from "react-icons/bs";
+import { BsHouse, BsPeople, BsPatchPlus, BsArrowLeftShort, BsBell } from "react-icons/bs";
+import { CiLogout } from "react-icons/ci";
 import { setLogout } from "../../store/slices/authSlice";
 import { unSetUser } from "../../store/slices/userSlice";
 
@@ -101,13 +102,28 @@ export default function Sidebar({ openMenu, setOpenMenu }) {
                         </NavLink>
                     </li>
 
-                    <li>
+                    <hr className="nav-line"></hr>
+
+                    <li
+                        onClick={() => { tabHandler(0) }}
+                        className={activeTab === 0 ? "active noti-li" : "noti-li"}
+                    >
+                        <NavLink to="/notification">
+                            <span className="icon">
+                                <BsBell />
+                                <div className="badge">2</div>
+                            </span>
+                            <span className="title">Notification</span>
+                        </NavLink>
+                    </li>
+
+                    <li className="last-li">
                         <NavLink
                             to="/logout"
                             onClick={logoutHandler}
                         >
                             <span className="icon">
-                                <BsBoxArrowRight />
+                                <CiLogout />
                             </span>
                             <span className="title">Logout</span>
                         </NavLink>

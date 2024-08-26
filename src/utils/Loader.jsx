@@ -1,11 +1,11 @@
 const Loader = () => {
     return (
-        <div className="fixed w-full h-[100vh] z-10 inset-0 flex justify-center items-center blur-sm">
-            <div className="w-16 h-16 flex items-center justify-center rounded-lg dark:bg-gray-800 dark:border-gray-700">
-            <div role="status" className="w-[100%]">
+        <div className="fixed w-full h-[100vh] z-10 inset-0 flex justify-center items-center">
+            <div className="w-10 h-10 flex items-center justify-center rounded-lg dark:bg-gray-800 dark:border-gray-700">
+            <div role="status" className="w-[100%] blur-md">
                 <svg
                     aria-hidden="true"
-                    className="text-gray-200 animate-spin dark:text-gray-600 fill-orange-400"
+                    className="text-gray-200 animate-spin dark:text-gray-600 fill-primary"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,6 @@ const Loader = () => {
                         fill="currentFill"
                     />
                 </svg>
-                <span className="sr-only">Loading...</span>
             </div>
         </div>
         </div>

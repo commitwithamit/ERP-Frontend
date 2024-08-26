@@ -4,6 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { fetchNewAccessToken } from "../pages/auth/api/auth";
 import { setLogin } from "../store/slices/authSlice";
 import { setUser } from "../store/slices/userSlice";
+import Loader from "../utils/Loader";
 
 const UsePersistLogin = () => {
     const isAuth = useSelector((state)=> state.auth.isAuth);
@@ -38,7 +39,7 @@ const UsePersistLogin = () => {
     if(isError){
         return <Navigate to="/login" />;
     }
-    return <>{isLoading?<div>Loading...</div> : <Outlet/>}</>;
+    return <>{isLoading?<Loader/> : <Outlet/>}</>;
 }
 
 export default UsePersistLogin;

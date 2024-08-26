@@ -5,6 +5,7 @@ $red:#d85d5d;
 $blue:#5f7ed2;
 $table-bg:#f0f0f0;
 $modal-bg:#2b2c2bc4;
+$disable:#9d9d9d;
 
 .bg-primary{
     background: $primary;
@@ -24,6 +25,9 @@ $modal-bg:#2b2c2bc4;
 }
 .text-accent{
     color: $accent;
+}
+.fill-primary{
+    fill: $primary;
 }
 
 @mixin shadow() {

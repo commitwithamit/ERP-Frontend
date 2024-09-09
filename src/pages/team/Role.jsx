@@ -1,4 +1,4 @@
-import { BsPlusLg, BsSearch, BsFolderX } from "react-icons/bs";
+import { BsPlusLg, BsSearch} from "react-icons/bs";
 import RoleList from "./RoleList";
 import { useState } from "react";
 import CreateRole from "./RoleCreate";
@@ -45,7 +45,6 @@ const Role = () => {
 
       <CreateRole isVisible={showModal} setShowModal={setShowModal} />
 
-      {/* {emptyTable && (<div className="nodata"><BsFolderX /> No records to display here.</div>)} */}
     </>
 
   )

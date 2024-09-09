@@ -1,10 +1,12 @@
-import { Button, TextInput } from "flowbite-react";
-import { LuLoader2 } from "react-icons/lu";
 import CustomModal from "../../custom/components/CustomModal";
 import UsePrivateApi from "../../hooks/UsePrivateApi";
 import UseAlert from "../../hooks/UseAlert";
-import { useEffect, useState, useRef, useContext } from "react";
 import TeamCtx from "../../contexts/TeamContext";
+
+import { AnimatePresence } from "framer-motion";
+import { Button, TextInput } from "flowbite-react";
+import { LuLoader2 } from "react-icons/lu";
+import { useEffect, useState, useRef, useContext } from "react";
 
 const CreateRole = ({ isVisible, setShowModal, editRoleId }) => {
     const [role, setRole] = useState("");
@@ -24,14 +26,14 @@ const CreateRole = ({ isVisible, setShowModal, editRoleId }) => {
         patch
     } = UsePrivateApi();
 
-    const teamCtx = useContext(TeamCtx); -
+    const teamCtx = useContext(TeamCtx);
 
-        // for Updating role name
-        useEffect(() => {
-            if (editRoleId) {
-                setRole(teamCtx.roles.find((item) => item._id === editRoleId).name);
-            }
-        }, [editRoleId]);
+    // setting role name state to the one that is being edited 
+    useEffect(() => {
+        if (editRoleId) {
+            setRole(teamCtx.roles.find((item) => item._id === editRoleId).name);
+        }
+    }, [editRoleId]);
 
     // for handling updation api side-effects
     useEffect(() => {
@@ -76,6 +78,7 @@ const CreateRole = ({ isVisible, setShowModal, editRoleId }) => {
                 show: true,
             });
             teamCtx.addRoleHandler(data?.role);
+            console.log(data?.role);
             // empty the input field and role state after successfully adding the role
             inputField.current.value = "";
             setRole("");
@@ -115,7 +118,13 @@ const CreateRole = ({ isVisible, setShowModal, editRoleId }) => {
 
     return (
         <>
-            <UseAlert showAlert={showAlert} setShowAlert={setShowAlert} />
+            <AnimatePresence mode="popLayout">
+                {
+                    showAlert.show &&
+                    <UseAlert showAlert={showAlert} setShowAlert={setShowAlert} />
+                }
+            </AnimatePresence>
+            
             <CustomModal isVisible={isVisible} setShowModal={setShowModal}>
                 <form action="#" className="space-y-6" onSubmit={submitHandler}>
                     <h3 className="text-xl font-medium text-gray-900 dark:text-white">Role/Designation Name</h3>

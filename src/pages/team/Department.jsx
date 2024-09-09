@@ -1,7 +1,9 @@
-import { BsPlusLg, BsSearch, BsFolderX } from "react-icons/bs";
-import RoleList from "./RoleList";
-import { useState } from "react";
 import CreateDepartment from "./DepartmentCreate";
+import DepartmentList from "./DepartmentList";
+
+import { AnimatePresence } from "framer-motion";
+import { BsPlusLg, BsSearch } from "react-icons/bs";
+import { useState } from "react";
 
 const Department = () => {
   const [showModal, setShowModal] = useState(false);
@@ -37,15 +39,16 @@ const Department = () => {
           </span>
         </div>
 
-        {
-          <RoleList />
-        }
+
+        <DepartmentList />
+
       </section>
 
-
-      <CreateDepartment isVisible={showModal} setShowModal={setShowModal} />
-
-      {/* {emptyTable && (<div className="nodata"><BsFolderX /> No records to display here.</div>)} */}
+      <AnimatePresence mode="popLayout">
+        {
+          showModal && <CreateDepartment isVisible={showModal} setShowModal={setShowModal} />
+        }
+      </AnimatePresence>
     </>
 
   )

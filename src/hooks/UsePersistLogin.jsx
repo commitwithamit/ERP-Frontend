@@ -21,7 +21,7 @@ const UsePersistLogin = () => {
                 dispatch(setUser(({user: response.data.user})));
                 setIsLoading(false);
             }catch(err){
-                setIsError(err.response.data?.message || "Internal Server Error");
+                setIsError(err.response?.data?.message || "Internal Server Error");
                 // setIsError(true);
             }finally{
                 setIsLoading(false);

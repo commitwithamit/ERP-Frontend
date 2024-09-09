@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from "react-router-dom";
 import UseAlert from '../../../hooks/UseAlert.jsx';
+import { AnimatePresence } from "framer-motion";
 
 import { login } from '../api/auth';
 import { setLogin } from '../../../store/slices/authSlice.js';
@@ -64,9 +65,18 @@ export default function Login() {
       setIsLoading(false);
     }
   }
+
   return (
     <>
-      <UseAlert showAlert={showAlert} setShowAlert={setShowAlert} />
+      <AnimatePresence mode="popLayout">
+        {
+          showAlert.show && 
+          <UseAlert 
+            showAlert={showAlert}
+            setShowAlert={setShowAlert}
+          />
+        }
+      </AnimatePresence>
 
       <section className='w-full h-[calc(100vh-16px)] flex justify-center items-center flex-col' >
         <h2 className='mb-5 text-5xl'>Login</h2>

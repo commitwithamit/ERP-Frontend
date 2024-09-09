@@ -1,7 +1,7 @@
 import UsePrivateApi from "../../hooks/UsePrivateApi";
 import UseAlert from "../../hooks/UseAlert";
 import TeamCtx from "../../contexts/TeamContext";
-import CreateRole from "./RoleCreate";
+import CreateDepartment from "./DepartmentCreate";
 import ConfirmationModal from "../../custom/components/ConfirmationModal";
 
 import { AnimatePresence } from "framer-motion";
@@ -11,8 +11,8 @@ import { BsPencilSquare, BsTrash3, BsFolderX } from "react-icons/bs";
 import { LuLoader2 } from "react-icons/lu";
 
 
-const RoleList = () => {
-    const [editRoleId, setEditRoleId] = useState();
+const DepartmentList = () => {
+    const [editDeptId, setEditDeptId] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
@@ -26,11 +26,16 @@ const RoleList = () => {
     const { data: delData, loading: delLoading, error: delError, del } = UsePrivateApi();
     const teamCtx = useContext(TeamCtx);
 
-    // for handling get api side-effect
+    // getting all the departments data
+    useEffect(() => {
+        get("/api/dept/get-depts");
+    }, []);
+
+    // for handling get all depratment api side-effect
     useEffect(() => {
         if (data) {
             setIsLoading(false);
-            teamCtx.addRoleHandler(data?.data);
+            teamCtx.addDeptHandler(data?.data);
         }
         if (loading) {
             setIsLoading(true);
@@ -54,10 +59,10 @@ const RoleList = () => {
                 msg: delData.message,
                 show: true,
             });
-            const updatedRoles = teamCtx.roles.filter(
-                (items) => items._id !== editRoleId
+            const updatedDept = teamCtx.depts.filter(
+                (items) => items._id !== editDeptId
             );
-            teamCtx.addRoleHandler(updatedRoles);
+            teamCtx.addDeptHandler(updatedDept);
         }
         if (delLoading) {
             setIsLoading(true);
@@ -72,73 +77,71 @@ const RoleList = () => {
         }
     }, [delData, delLoading, delError]);
 
-    useEffect(() => {
-        get("/api/role/get-roles");
-    }, []);
-
     const handleDeleteConfirmation = (val) => {
         if (val) {
-            del(`/api/role/delete-role/${editRoleId}`);
+            del(`/api/dept/delete-dept/${editDeptId}`);
         }
         setShowConfirmation(false);
     }
-
     return (
         <>
             <AnimatePresence mode="popLayout">
-                {
-                    showAlert.show &&
-                    <UseAlert showAlert={showAlert} setShowAlert={setShowAlert} />
-                }
+                {showAlert.show && <UseAlert showAlert={showAlert} setShowAlert={setShowAlert} />}
             </AnimatePresence>
 
             {isLoading && <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
                 <LuLoader2 className='w-6 h-6 animate-spin ml-2' />
             </div>}
 
-            <CreateRole isVisible={showModal} setShowModal={setShowModal} editRoleId={editRoleId} />
+            {showModal && <CreateDepartment isVisible={showModal} setShowModal={setShowModal} editDeptId={editDeptId} />}
 
-            <ConfirmationModal name={"role"} showConfirmation={showConfirmation} setShowConfirmation={setShowConfirmation} handleDeleteConfirmation={handleDeleteConfirmation} />
+            {showConfirmation && <ConfirmationModal name={"Department"} showConfirmation={showConfirmation} setShowConfirmation={setShowConfirmation} handleDeleteConfirmation={handleDeleteConfirmation} />}
 
             {
-                teamCtx.roles.length > 0 ? (
+                teamCtx.depts.length > 0 ? (
                     <div className="table-con overflow-x-auto">
                         <Table hoverable className="table-bg">
                             <Table.Head className="sticky top-0">
-                                <Table.HeadCell>Role</Table.HeadCell>
+                                <Table.HeadCell>Department</Table.HeadCell>
+                                <Table.HeadCell>Manager</Table.HeadCell>
                                 <Table.HeadCell className="w-[100px]">Action</Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y">
                                 {
-                                    teamCtx.roles.map((role, index) => {
+                                    teamCtx.depts.map((dept, index) => {
                                         return (
                                             <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:rounded-lg">
                                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                                    {role.name}
+                                                    {dept.name}
                                                 </Table.Cell>
+
+                                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                    {dept.managerId?.name || dept.managerId?.email || "-"}
+                                                </Table.Cell>
+
                                                 <Table.Cell className="actions w-[100px]">
-                                                    <Tooltip content={role.name === "Admin" ? "Not Allowed" : "Edit"} animation="duration-500">
+                                                    <Tooltip content={dept.name?.toLowerCase() === "management" ? "Not Allowed" : "Edit"} animation="duration-500">
                                                         <button
-                                                            className={`edit font-medium text-blue-600 dark:text-blue-500 hover:underline ${role.name === 'Admin' && 'off'}`}
+                                                            className={`edit font-medium text-blue-600 dark:text-blue-500 hover:underline ${dept.name?.toLowerCase() === "management" && 'off'}`}
                                                             data-tooltip-target="tooltip-animation"
                                                             onClick={() => {
                                                                 setShowModal(true);
-                                                                setEditRoleId(role._id);
+                                                                setEditDeptId(dept._id);
                                                             }}
-                                                            disabled={role.name === "Admin"}
+                                                            disabled={dept.name?.toLowerCase() === "management"}
                                                         >
                                                             <BsPencilSquare />
                                                         </button>
                                                     </Tooltip>
-                                                    <Tooltip content={role.name === "Admin" ? "Not Allowed" : "Delete"} animation="duration-500">
+                                                    <Tooltip content={dept.name?.toLowerCase() === "management" ? "Not Allowed" : "Delete"} animation="duration-500">
                                                         <button
-                                                            className={`delete font-medium text-blue-600 dark:text-blue-500 hover:underline ${role.name === 'Admin' && 'off'}`}
+                                                            className={`delete font-medium text-blue-600 dark:text-blue-500 hover:underline ${dept.name?.toLowerCase() === "management" && 'off'}`}
                                                             data-tooltip-target="tooltip-animation"
-                                                            disabled={role.name === "Admin"}
                                                             onClick={() => {
                                                                 setShowConfirmation(true);
-                                                                setEditRoleId(role._id);
+                                                                setEditDeptId(dept._id);
                                                             }}
+                                                            disabled={dept.name?.toLowerCase() === "management"}
                                                         >
                                                             <BsTrash3 />
                                                         </button>
@@ -159,4 +162,4 @@ const RoleList = () => {
     )
 }
 
-export default RoleList;
+export default DepartmentList;

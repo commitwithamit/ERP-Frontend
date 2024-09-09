@@ -13,7 +13,8 @@ body {
 }
 
 .tabs.active,
-.modal input {
+.modal input,
+.modal select {
     background: transparent;
     color: $primary;
     border: 1px solid $primary;
@@ -429,7 +430,8 @@ button[type="submit"] {
     // opacity: .8;
     background-color: $modal-bg !important;
 
-    input {
+    input,
+    select {
         border: 1px solid $primary;
 
         &:focus {
@@ -438,9 +440,20 @@ button[type="submit"] {
             border-color: rgb(168 162 158);
         }
     }
+    select{
+        // color: #6f7682;
+        option{
+            background: $secondary;
+            color: $primary!important;
+            &:nth-child(1){
+                color: $disable;
+            }
+        }
+    }
 
     &>div {
         &>div {
+            // background: unset;
             background: $secondary;
         }
     }

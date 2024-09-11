@@ -93,9 +93,9 @@ const DepartmentList = () => {
                 <LuLoader2 className='w-6 h-6 animate-spin ml-2' />
             </div>}
 
-            {showModal && <CreateDepartment isVisible={showModal} setShowModal={setShowModal} editDeptId={editDeptId} />}
+            <CreateDepartment isVisible={showModal} setShowModal={setShowModal} editDeptId={editDeptId} />
 
-            {showConfirmation && <ConfirmationModal name={"Department"} showConfirmation={showConfirmation} setShowConfirmation={setShowConfirmation} handleDeleteConfirmation={handleDeleteConfirmation} />}
+            <ConfirmationModal name={"Department"} showConfirmation={showConfirmation} setShowConfirmation={setShowConfirmation} handleDeleteConfirmation={handleDeleteConfirmation} />
 
             {
                 teamCtx.depts.length > 0 ? (

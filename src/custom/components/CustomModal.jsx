@@ -1,39 +1,42 @@
-// import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
-import { Modal } from "flowbite-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { forwardRef } from "react";
-
-const CustomModal = forwardRef(({ isVisible, setShowModal, children }, ref) => {
-
-  function onCloseModal() {
-    setShowModal(false);
-  }
+import { BsXLg } from "react-icons/bs";
+const CustomModal = ({ isVisible, setShowModal, children }) => {
 
   return (
     <>
-
-      <motion.div
-        className="yoyo"
-        style={{
-          // transform:"scale(0.8)",
-          // opacity:0
-          background:"red",
-        }}
-        initial={{ opacity: 0, scale: 0.8 }}  // starting animation state
-        animate={{ opacity: 1, scale: 1 }}    // state when modal is open
-        exit={{ opacity: 0, scale: 0.8 }}     // state when modal is closed
-        transition={{ duration: 0.3 }}
-      >
-        <Modal dismissible show={isVisible} size="md" onClose={onCloseModal} popup className="modal" ref={ref}>
-          <Modal.Header />
-          <Modal.Body>
-            {children}
-          </Modal.Body>
-        </Modal>
-      </motion.div>
+      <AnimatePresence>
+        {
+          isVisible && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+              className='modal-con'
+            >
+              <motion.div
+                initial={{ scale: 0, rotate: "12.5deg" }}
+                animate={{ scale: 1, rotate: "0deg" }}
+                exit={{ scale: 0, rotate: "12.5deg" }}
+                onClick={(e) => e.stopPropagation()}
+                className="modal-content"
+              >
+                <div>
+                  <button className="modal-close" onClick={() => setShowModal(false)}>
+                    <BsXLg />
+                  </button>
+                  <div className="modal-body">
+                    {children}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )
+        }
+      </AnimatePresence>
 
     </>
   );
-});
+};
 
 export default CustomModal;

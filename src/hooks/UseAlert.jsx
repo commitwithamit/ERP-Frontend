@@ -8,6 +8,7 @@ import { forwardRef } from "react";
 {/* <UseAlert showAlert={showAlert} setShowAlert={setShowAlert} /> */ }
 
 const UseAlert = forwardRef(({ showAlert, setShowAlert }, ref) => {
+    // console.log(showAlert);
     useEffect(() => {
         const removeTimer = setTimeout(() => {
             setShowAlert({

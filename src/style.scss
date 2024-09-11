@@ -233,7 +233,7 @@ button[type="submit"] {
                     &.noti-li {
                         position: relative;
 
-                        svg{
+                        svg {
                             z-index: 0;
                         }
 
@@ -426,13 +426,74 @@ button[type="submit"] {
     pointer-events: none;
 }
 
-.modal {
-    // opacity: .8;
+.modal-con {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100vh;
+    z-index: 90;
+    @include flex-center;
     background-color: $modal-bg !important;
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+
+    .modal-content {
+        padding: 1rem;
+        max-width: 28rem;
+        width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 99;
+
+        &>div {
+            background: $secondary;
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+
+            .modal-close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+                background: none;
+                outline: none;
+                border: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.1rem;
+                transition: all .3s ease;
+
+                &:hover {
+                    transform: rotate(180deg);
+                }
+            }
+
+            .confirmation{
+                .bg-icon{
+                    font-size: 14rem;
+                    position: absolute;
+                    top: -60px;
+                    left: -85px;
+                    transform: rotate(22deg);
+                    color: #4c4c4c14;
+                    z-index: 0;
+                }
+            }
+
+        }
+    }
 
     input,
     select {
         border: 1px solid $primary;
+        background: transparent;
 
         &:focus {
             outline: none !important;
@@ -440,23 +501,26 @@ button[type="submit"] {
             border-color: rgb(168 162 158);
         }
     }
-    select{
+
+    select {
+
         // color: #6f7682;
-        option{
+        option {
             background: $secondary;
-            color: $primary!important;
-            &:nth-child(1){
+            color: $primary !important;
+
+            &:nth-child(1) {
                 color: $disable;
             }
         }
     }
 
-    &>div {
-        &>div {
-            // background: unset;
-            background: $secondary;
-        }
-    }
+    // &>div {
+    //     &>div {
+    //         // background: unset;
+    //         background: $secondary;
+    //     }
+    // }
 
     .btn {
         background: $primary !important;

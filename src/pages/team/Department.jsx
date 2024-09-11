@@ -44,11 +44,8 @@ const Department = () => {
 
       </section>
 
-      <AnimatePresence mode="popLayout">
-        {
-          showModal && <CreateDepartment isVisible={showModal} setShowModal={setShowModal} />
-        }
-      </AnimatePresence>
+       <CreateDepartment isVisible={showModal} setShowModal={setShowModal} />
+      
     </>
 
   )

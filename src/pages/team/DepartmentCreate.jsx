@@ -29,7 +29,6 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
 
     const teamCtx = useContext(TeamCtx);
 
-    // console.log(editDeptId);
     // creating department api side-effect handler
     useEffect(() => {
         if (loading) {
@@ -43,7 +42,7 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
                 show: true,
             });
             teamCtx.addDeptHandler(data?.department);
-            // emptying the input field for next department name 
+            // emptying the input field for next department name
             inputField.current.value = "";
             selectField.current.value = "Select manager";
             selectField.current.style.color = "#6f7682";
@@ -61,16 +60,8 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
 
     // Updating department api side-effect handler
     useEffect(() => {
-        if (putLoading) {
-            setIsLoading(true);
-        }
         if (putData) {
             setIsLoading(false);
-            setShowAlert({
-                type: "success",
-                msg: putData.message,
-                show: true,
-            });
             const updatedDept = teamCtx.depts.map((item) => {
                 if (item._id === editDeptId) {
                     return { ...item, name: deptName, managerId: putData.data }
@@ -78,8 +69,19 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
                 return item;
             });
             teamCtx.addDeptHandler(updatedDept);
+
             // closing modal box
-            setShowModal(false);
+            setShowAlert({
+                type: "success",
+                msg: putData.message,
+                show: true,
+            });
+            setTimeout(()=>{
+                setShowModal(false);
+            },5010);
+        }
+        if (putLoading) {
+            setIsLoading(true);
         }
         if (putError) {
             setIsLoading(false);
@@ -141,18 +143,17 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
         if (!deptName) {
             setShowAlert({
                 type: "failure",
-                msg: "Please enter department name.",
+                msg: "Please enter department name",
                 show: true,
             });
             return;
         }
-
         if (editDeptId) {
             // update with both fields mandatory 
             if (!managerId) {
                 setShowAlert({
                     type: "failure",
-                    msg: "Please select a manager.",
+                    msg: "Please select a manager",
                     show: true,
                 });
                 return;
@@ -163,6 +164,14 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
             post("/api/dept/create-dept", { name: deptName, managerId });
         }
     }
+
+    // when editing a department if there is alread and manager selected and no change is being made to the manager then we will set that manager's id otherwise on submit we will get an error "please select a manager"
+    useEffect(() => {
+        const preSelectedManager = managerList.find((item) => item?.selected);
+        if (preSelectedManager) {
+            setManagerId(preSelectedManager._id);
+        }
+    }, [managerList]);
     return (
         <>
             <AnimatePresence mode="popLayout">
@@ -170,7 +179,6 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
                     showAlert.show && <UseAlert showAlert={showAlert} setShowAlert={setShowAlert} />
                 }
             </AnimatePresence>
-
 
             <CustomModal isVisible={isVisible} setShowModal={setShowModal}>
                 <form action="#" className="space-y-6" onSubmit={submitHandler}>

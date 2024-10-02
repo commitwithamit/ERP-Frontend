@@ -44,8 +44,12 @@ const Department = () => {
 
       </section>
 
-       <CreateDepartment isVisible={showModal} setShowModal={setShowModal} />
-      
+      <AnimatePresence>
+        {
+          showModal && <CreateDepartment isVisible={showModal} setShowModal={setShowModal} />
+        }
+      </AnimatePresence>
+
     </>
 
   )

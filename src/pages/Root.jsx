@@ -26,7 +26,6 @@ export default function Root() {
 
   }, []);
 
-
   return (
     <div className="main-container">
       <Sidebar openMenu={openMenu} setOpenMenu={setOpenMenu} />

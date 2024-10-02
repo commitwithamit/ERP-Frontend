@@ -93,7 +93,11 @@ const DepartmentList = () => {
                 <LuLoader2 className='w-6 h-6 animate-spin ml-2' />
             </div>}
 
-            <CreateDepartment isVisible={showModal} setShowModal={setShowModal} editDeptId={editDeptId} />
+            <AnimatePresence>
+                {
+                    showModal && <CreateDepartment isVisible={showModal} setShowModal={setShowModal} editDeptId={editDeptId} />
+                }
+            </AnimatePresence>
 
             <ConfirmationModal name={"Department"} showConfirmation={showConfirmation} setShowConfirmation={setShowConfirmation} handleDeleteConfirmation={handleDeleteConfirmation} />
 
@@ -149,7 +153,7 @@ const DepartmentList = () => {
                                                 </Table.Cell>
                                             </Table.Row>
                                         )
-                                    })
+                                    }) 
                                 }
                             </Table.Body>
                         </Table>

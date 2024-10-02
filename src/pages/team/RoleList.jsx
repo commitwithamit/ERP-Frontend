@@ -96,7 +96,11 @@ const RoleList = () => {
                 <LuLoader2 className='w-6 h-6 animate-spin ml-2' />
             </div>}
 
-            <CreateRole isVisible={showModal} setShowModal={setShowModal} editRoleId={editRoleId} />
+            <AnimatePresence>
+                {
+                    showModal && <CreateRole isVisible={showModal} setShowModal={setShowModal} editRoleId={editRoleId} />
+                }
+            </AnimatePresence>
 
             <ConfirmationModal name={"role"} showConfirmation={showConfirmation} setShowConfirmation={setShowConfirmation} handleDeleteConfirmation={handleDeleteConfirmation} />
 

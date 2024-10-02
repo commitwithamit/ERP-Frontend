@@ -76,9 +76,9 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
                 msg: putData.message,
                 show: true,
             });
-            setTimeout(()=>{
+            setTimeout(() => {
                 setShowModal(false);
-            },5010);
+            }, 5010);
         }
         if (putLoading) {
             setIsLoading(true);
@@ -131,7 +131,7 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
     }, [getData, getLoading, getError]);
 
 
-    // getting all available managers
+    // Api call for getting all available managers
     useEffect(() => {
         get("/api/user/available-managers");
     }, []);
@@ -174,7 +174,7 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
     }, [managerList]);
     return (
         <>
-            <AnimatePresence mode="popLayout">
+            <AnimatePresence>
                 {
                     showAlert.show && <UseAlert showAlert={showAlert} setShowAlert={setShowAlert} />
                 }
@@ -232,6 +232,7 @@ const CreateDepartment = forwardRef(({ isVisible, setShowModal, editDeptId }, re
                     </div>
                 </form>
             </CustomModal>
+
         </>
     )
 })

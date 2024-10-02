@@ -1,6 +1,8 @@
 import { BsPlusLg, BsSearch} from "react-icons/bs";
-import RoleList from "./RoleList";
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+
+import RoleList from "./RoleList";
 import CreateRole from "./RoleCreate";
 
 const Role = () => {
@@ -42,9 +44,11 @@ const Role = () => {
         }
       </section>
 
-
-      <CreateRole isVisible={showModal} setShowModal={setShowModal} />
-
+      <AnimatePresence>
+        {
+          showModal && <CreateRole isVisible={showModal} setShowModal={setShowModal} />
+        }
+      </AnimatePresence>      
     </>
 
   )
